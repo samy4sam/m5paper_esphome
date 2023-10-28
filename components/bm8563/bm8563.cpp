@@ -81,17 +81,21 @@ void BM8563::read_time() {
     BM8563_TimeStruct.seconds
   );
 
-  time::ESPTime rtc_time{.second = uint8_t(BM8563_TimeStruct.seconds),
-                         .minute = uint8_t(BM8563_TimeStruct.minutes),
-                         .hour = uint8_t(BM8563_TimeStruct.hours),
-                         .day_of_week = uint8_t(BM8563_DateStruct.week),
-                         .day_of_month = uint8_t(BM8563_DateStruct.day),
-                         .day_of_year = 1,  // ignored by recalc_timestamp_utc(false)
-                         .month = uint8_t(BM8563_DateStruct.month),
-                         .year = uint16_t(BM8563_DateStruct.year)
-                         };
+  esphome::ESPTime rtc_time{
+    .second = uint8_t(BM8563_TimeStruct.seconds),
+    .minute = uint8_t(BM8563_TimeStruct.minutes),
+    .hour = uint8_t(BM8563_TimeStruct.hours),
+    .day_of_week = uint8_t(BM8563_DateStruct.week),
+    .day_of_month = uint8_t(BM8563_DateStruct.day),
+    .day_of_year = 1,  // you may want to calculate this if needed
+    .month = uint8_t(BM8563_DateStruct.month),
+    .year = uint16_t(BM8563_DateStruct.year),
+    .is_dst = false,  // set to true if you want to enable DST
+    .timestamp = 0  // this will be recalculated
+  };
+  
   rtc_time.recalc_timestamp_utc(false);
-  time::RealTimeClock::synchronize_epoch_(rtc_time.timestamp);
+  esphome::RealTimeClock::synchronize_epoch_(rtc_time.timestamp);
 }
 
 bool BM8563::getVoltLow() {
