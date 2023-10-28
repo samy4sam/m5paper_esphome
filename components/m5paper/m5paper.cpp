@@ -30,7 +30,7 @@ void M5PaperComponent::setup() {
     adc_power_acquire();
 
     adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_GPIO35_CHANNEL, ADC_ATTEN_DB_11);
+    adc1_config_channel_atten(7, ADC_ATTEN_DB_11); // 7 instead of ADC1_GPIO35_CHANNEL
     this->_adc_chars = (esp_adc_cal_characteristics_t *)calloc(1, sizeof(esp_adc_cal_characteristics_t));
     esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, BASE_VOLATAGE, this->_adc_chars);
 }
@@ -50,7 +50,7 @@ void M5PaperComponent::update() {
     uint32_t adc_raw_value = 0;
     for (uint16_t i = 0; i < ADC_FILTER_SAMPLE; i++)
     {
-        adc_raw_value += adc1_get_raw(ADC1_GPIO35_CHANNEL);
+        adc_raw_value += adc1_get_raw(7); // 7 instead of ADC1_GPIO35_CHANNEL
     }
 
     adc_raw_value = adc_raw_value / ADC_FILTER_SAMPLE;
