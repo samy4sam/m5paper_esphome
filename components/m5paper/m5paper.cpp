@@ -7,7 +7,7 @@ namespace m5paper {
 #define BASE_VOLATAGE 3600
 #define SCALE 0.5//0.78571429
 #define ADC_FILTER_SAMPLE 16
-#define ADC1_GPIO35_CHANNEL 7
+#define ADC1_GPIO35_CHANNEL static_cast<adc1_channel_t>(7)
 
 // hack to hold power lines up in deep sleep mode
 // battery life isn't great with deep sleep, recommend bm8563 sleep
