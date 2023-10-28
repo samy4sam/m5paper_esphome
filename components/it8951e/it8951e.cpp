@@ -365,17 +365,11 @@ void HOT IT8951ESensor::draw_absolute_pixel_internal(int x, int y, Color color) 
 }
 
 int IT8951ESensor::get_width_internal() {
-    if (this->device_info_ == nullptr) {
-        return M5EPD_PANEL_W; // workaround for touchscreen calling this reallly early
-    }
-    return this->device_info_->usPanelW;
+    return 960;
 }
 
 int IT8951ESensor::get_height_internal() {
-    if (this->device_info_ == nullptr) {
-        return M5EPD_PANEL_H; // workaround for touchscreen calling this reallly early
-    }
-    return this->device_info_->usPanelH;
+    return 540;
 }
 
 void IT8951ESensor::dump_config(){
